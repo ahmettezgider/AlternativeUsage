@@ -3,7 +3,9 @@ package stepdefs;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.WindowType;
+import org.testng.Assert;
 import pages.BaseTest;
 import pages.OpenCart;
 import pages.OrangeHRM;
@@ -84,5 +86,26 @@ public class Stepdefs extends BaseTest {
     @And("wait {int} milis")
     public void waitMilis(int milis) {
         Utils.sleep(milis);
+    }
+
+    @Given("user starts operations")
+    public void userStartsOperations() {
+        System.out.println("operation is started");
+    }
+
+    int sum;
+    @When("user add {int} and {int}")
+    public void userAddAnd(int num1, int num2) {
+        sum = num1 + num2;
+    }
+
+    @Then("result should be {int}")
+    public void resultShouldBe(int num) {
+        Assert.assertEquals(num, sum);
+    }
+
+    @And("close window {string}")
+    public void closeWindow(String window) {
+        driver.switchTo().window(window).close();
     }
 }

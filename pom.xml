@@ -40,12 +40,33 @@
             <version>7.11.2</version>
         </dependency>
     </dependencies>
+
+</project>
+
+<!--
+
+    // XML Test Suite
     <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M1</version>
+                <version>3.0.0</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/java/runners/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    // Runner
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
                 <configuration>
                     <includes>
                         <include>**/Runner.java</include>
@@ -53,7 +74,43 @@
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>
-
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
         </plugins>
     </build>
-</project>
+
+
+    // Runner, include, exclude
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <includes>
+                        <include>**/Runner.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>**/Runner1.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+        Regular Expression
+        <include>%regex[.*(Cat|Dog).*Test.*]</include>
+
+        Multiple Formats in One
+        <include>%regex[.*(Cat|Dog).*], !%regex[pkg.*Slow.*.class], pkg/**/*Fast*.java, Basic????, !Unstable*</include>
+        <exclude>%regex[pkg.*Slow.*.class], Unstable*</exclude>
+
+        Full package
+        <include>my.package.*, another.package.*</include>
+        <exclude>my.package.???ExcludedTest, another.package.*ExcludedTest</exclude>
+
+         -->
